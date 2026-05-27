@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zahnarztpraxis in der Fürstenstraße – Ihr Zahnarzt in Bonn</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root {
+    --bg: #657388;
+    --bg-deep: #4f5a6d;
+    --bg-soft: #7a8699;
+    --primary: #FFFFFF;
+    --accent: #FAFAFA;
+    --ink: #2a3140;
+  }
+
+  * { -webkit-font-smoothing: antialiased; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
+    background: var(--bg);
+    color: var(--primary);
+    overflow-x: hidden;
+  }
+
+  .font-display {
+    font-family: 'Didot', 'Bodoni 72', 'Bodoni Moda', 'Playfair Display', Garamond, serif;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+    letter-spacing: 0.04em;
+  }
+
+  /* Editorial number style */
+  .editorial-num {
+    font-family: 'Didot', 'Bodoni Moda', serif;
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  /* Grain overlay */
+  .grain::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.08;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  /* Subtle vignette */
+  .vignette {
+    background:
+      radial-gradient(ellipse at top, rgba(255,255,255,0.06), transparent 60%),
+      radial-gradient(ellipse at bottom, rgba(0,0,0,0.15), transparent 60%);
+  }
+
+  /* Hero image treatment */
+  .hero-img {
+    background-image: url('https://tempfile.aiquickdraw.com/image-format-converter/1779878126329-hhdcv44ducp.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: grayscale(0.15) contrast(1.05) brightness(0.95);
+  }
+
+  .hero-img-frame {
+    position: relative;
+  }
+  .hero-img-frame::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(79,90,109,0.45));
+    pointer-events: none;
+  }
+
+  /* CTA Button */
+  .btn-primary {
+    background: var(--accent);
+    color: var(--ink);
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 1.1rem 1.8rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.9rem;
+    border: 1px solid rgba(255,255,255,0.9);
+    transition: all .35s cubic-bezier(.2,.7,.2,1);
+    position: relative;
+    overflow: hidden;
+    min-height: 48px;
+  }
+  .btn-primary:hover {
+    background: transparent;
+    color: var(--primary);
+    border-color: var(--primary);
+  }
+  .btn-primary .arrow {
+    transition: transform .35s ease;
+  }
+  .btn-primary:hover .arrow { transform: translateX(6px); }
+
+  .btn-ghost {
+    color: var(--primary);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.9rem 1.4rem;
+    border: 1px solid rgba(255,255,255,0.35);
+    transition: all .35s ease;
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .btn-ghost:hover { border-color: var(--primary); background: rgba(255,255,255,0.06); }
+
+  /* Hairline rules */
+  .hair { height: 1px; background: rgba(255,255,255,0.18); }
+  .hair-vert { width: 1px; background: rgba(255,255,255,0.18); }
+
+  /* Display headline scale */
+  .display-xl {
+    font-size: clamp(3rem, 10vw, 9rem);
+    line-height: 0.92;
+    letter-spacing: -0.035em;
+  }
+  .display-lg {
+    font-size: clamp(2.4rem, 6.5vw, 5.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+  }
+  .display-md {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+
+  .italic-soft { font-style: italic; font-weight: 300; color: rgba(255,255,255,0.85); }
+
+  /* Tag chips */
+  .chip {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    padding: 0.45rem 0.85rem;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 999px;
+  }
+
+  /* Stagger reveal */
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  .reveal { animation: rise 1.1s cubic-bezier(.2,.7,.2,1) both; }
+  .fade-in { animation: fade 1.6s ease both; }
+
+  .delay-1 { animation-delay: .15s; }
+  .delay-2 { animation-delay: .3s; }
+  .delay-3 { animation-delay: .45s; }
+  .delay-4 { animation-delay: .6s; }
+  .delay-5 { animation-delay: .75s; }
+  .delay-6 { animation-delay: .9s; }
+
+  /* Marquee */
+  .marquee {
+    display: flex;
+    gap: 4rem;
+    animation: scroll 38s linear infinite;
+    white-space: nowrap;
+  }
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* FAQ */
+  details summary { list-style: none; cursor: pointer; }
+  details summary::-webkit-details-marker { display: none; }
+  details[open] .plus { transform: rotate(45deg); }
+  .plus { transition: transform .35s ease; }
+
+  /* Form */
+  input, textarea {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(42,49,64,0.25);
+    padding: 0.9rem 0;
+    width: 100%;
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color .25s ease;
+  }
+  input:focus, textarea:focus { border-color: var(--ink); }
+  input::placeholder, textarea::placeholder { color: rgba(42,49,64,0.45); }
+
+  .form-card {
+    background: var(--accent);
+    color: var(--ink);
+  }
+
+  .submit-btn {
+    background: var(--ink);
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 1.2rem 2rem;
+    width: 100%;
+    border: none;
+    cursor: pointer;
+    min-height: 52px;
+    transition: opacity .25s ease;
+  }
+  .submit-btn:hover { opacity: 0.85; }
+
+  /* Sticky mobile CTA */
+  .sticky-cta {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    padding: 0.75rem 1rem;
+    background: var(--bg-deep);
+    border-top: 1px solid rgba(255,255,255,0.15);
+    z-index: 50;
+    display: none;
+  }
+  @media (max-width: 768px) {
+    .sticky-cta { display: flex; gap: 0.5rem; }
+  }
+
+  /* Number badge */
+  .num-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    opacity: 0.55;
+  }
+
+  /* Tooth-line decorative */
+  .deco-line {
+    width: 60px;
+    height: 1px;
+    background: var(--primary);
+    opacity: 0.5;
+  }
+
+  /* Section labels */
+  .sec-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  /* Hover lift */
+  .lift { transition: transform .5s cubic-bezier(.2,.7,.2,1); }
+  .lift:hover { transform: translateY(-6px); }
+
+  /* Quote mark */
+  .qmark {
+    font-family: 'Didot', 'Bodoni Moda', serif;
+    font-size: 8rem;
+    line-height: 0.6;
+    opacity: 0.18;
+  }
+</style>
+</head>
+<body class="grain">
+
+<!-- ============ NAV ============ -->
+<header class="fade-in fixed top-0 left-0 right-0 z-40 backdrop-blur-sm" style="background: rgba(101,115,136,0.78);">
+  <div class="max-w-[1500px] mx-auto px-5 md:px-10 flex items-center justify-between py-4 md:py-5">
+    <a href="#top" class="flex items-center gap-3">
+      <span class="font-display text-xl md:text-2xl leading-none">Fürstenstraße</span>
+      <span class="hidden md:inline font-mono text-[0.62rem] tracking-[0.3em] uppercase opacity-70 border-l border-white/25 pl-3">Zahnarztpraxis Bonn</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 font-mono text-[0.72rem] tracking-[0.22em] uppercase">
+      <a href="#kompetenzen" class="hover:opacity-70 transition">Kompetenzen</a>
+      <a href="#proof" class="hover:opacity-70 transition">Patienten</a>
+      <a href="#team" class="hover:opacity-70 transition">Team</a>
+      <a href="#faq" class="hover:opacity-70 transition">FAQ</a>
+    </nav>
+    <a href="#termin" class="btn-primary !py-2.5 !px-4 !text-[0.68rem]">
+      <span>Termin</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+  <div class="hair"></div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section id="top" class="vignette pt-28 md:pt-36 pb-16 md:pb-24 relative">
+  <div class="max-w-[1500px] mx-auto px-5 md:px-10">
+
+    <!-- Top meta row -->
+    <div class="flex flex-wrap items-end justify-between gap-4 mb-10 md:mb-16 reveal">
+      <div class="flex items-center gap-4">
+        <span class="num-badge">— EST. SCHLOSSNÄHE BONN</span>
+      </div>
+      <div class="font-mono text-[0.7rem] tracking-[0.22em] uppercase opacity-80 hidden md:block">
+        Fürstenstraße 2 · 53111 Bonn · 0228 65 66 97
+      </div>
+    </div>
+
+    <!-- Headline grid -->
+    <div class="grid grid-cols-12 gap-6 md:gap-10 items-start">
+
+      <!-- Left: huge headline -->
+      <div class="col-span-12 lg:col-span-7">
+        <h1 class="font-display display-xl reveal delay-1">
+          Endlich<br>
+          <span class="italic-soft">gerne</span> zum<br>
+          Zahnarzt.
+        </h1>
+
+        <div class="mt-8 md:mt-12 max-w-xl reveal delay-3">
+          <p class="text-lg md:text-xl leading-relaxed text-white/85">
+            Sanfte Behandlung, ehrliche Beratung und ein Team, das sich Zeit nimmt — für Familien, Ängstliche und alle, die in Bonn einen Zahnarzt suchen, bei dem sie wirklich ankommen.
+          </p>
+        </div>
+
+        <div class="mt-10 flex flex-wrap items-center gap-4 reveal delay-4">
+          <a href="#termin" class="btn-primary">
+            <span>Termin online vereinbaren</span>
+            <span class="arrow">→</span>
+          </a>
+          <a href="tel:022865669̆7" class="btn-ghost">
+            <span>0228 · 65 66 97</span>
+          </a>
+        </div>
+
+        <!-- Trust strip -->
+        <div class="mt-12 md:mt-16 grid grid-cols-3 gap-6 max-w-2xl reveal delay-5">
+          <div>
+            <div class="font-display text-4xl md:text-5xl"><span class="editorial-num">20+</span></div>
+            <div class="font-mono text-[0.68rem] tracking-[0.18em] uppercase opacity-70 mt-2">Jahre Praxis<br>in Bonn</div>
+          </div>
+          <div class="border-l border-white/20 pl-6">
+            <div class="font-display text-4xl md:text-5xl"><span class="editorial-num">5.0</span></div>
+            <div class="font-mono text-[0.68rem] tracking-[0.18em] uppercase opacity-70 mt-2">★ Patienten-<br>bewertungen</div>
+          </div>
+          <div class="border-l border-white/20 pl-6">
+            <div class="font-display text-4xl md:text-5xl"><span class="editorial-num">7</span></div>
+            <div class="font-mono text-[0.68rem] tracking-[0.18em] uppercase opacity-70 mt-2">Spezial-<br>kompetenzen</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: hero image -->
+      <div class="col-span-12 lg:col-span-5 reveal delay-2">
+        <div class="hero-img-frame">
+          <div class="hero-img w-full h-[420px] md:h-[600px]"></div>
+          <div class="absolute bottom-5 left-5 right-5 z-10 flex items-end justify-between">
+            <div>
+              <div class="font-mono text-[0.65rem] tracking-[0.25em] uppercase opacity-90">Dr. Sven Gangfuß</div>
+              <div class="font-display text-xl mt-1 italic-soft">Ihr Zahnarzt für die ganze Familie</div>
+            </div>
+            <span class="chip">↳ Schlossnähe</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom marquee strip -->
+    <div class="mt-20 md:mt-28 hair"></div>
+    <div class="py-5 overflow-hidden">
+      <div class="marquee font-display text-2xl md:text-3xl italic-soft">
+        <span>Prophylaxe</span><span class="opacity-40">✦</span>
+        <span>Endodontie</span><span class="opacity-40">✦</span>
+        <span>Bleaching</span><span class="opacity-40">✦</span>
+        <span>Implantologie</span><span class="opacity-40">✦</span>
+        <span>Ästhetik</span><span class="opacity-40">✦</span>
+        <span>Parodontologie</span><span class="opacity-40">✦</span>
+        <span>Zahnerhalt</span><span class="opacity-40">✦</span>
+        <span>Prothetik</span><span class="opacity-40">✦</span>
+        <span>Eigenes Labor</span><span class="opacity-40">✦</span>
+        <!-- duplicate -->
+        <span>Prophylaxe</span><span class="opacity-40">✦</span>
+        <span>Endodontie</span><span class="opacity-40">✦</span>
+        <span>Bleaching</span><span class="opacity-40">✦</span>
+        <span>Implantologie</span><span class="opacity-40">✦</span>
+        <span>Ästhetik</span><span class="opacity-40">✦</span>
+        <span>Parodontologie</span><span class="opacity-40">✦</span>
+        <span>Zahnerhalt</span><span class="opacity-40">✦</span>
+        <span>Prothetik</span><span class="opacity-40">✦</span>
+        <span>Eigenes Labor</span><span class="opacity-40">✦</span>
+      </div>
+    </div>
+    <div class="hair"></div>
+  </div>
+</section>
+
+<!-- ============ PAIN ============ -->
+<section class="py-20 md:py-32 relative">
+  <div class="max-w-[1500px] mx-auto px-5 md:px-10">
+    <div class="grid grid-cols-12 gap-6 md:gap-10">
+
+      <div class="col-span-12 md:col-span-4">
+        <div class="sec-label mb-6">— 01 / Das Problem</div>
+        <h2 class="font-display display-md">
+          Sie schieben den<br>
+          <span class="italic-soft">Zahnarzttermin</span><br>
+          seit Monaten auf?
+        </h2>
+      </div>
+
+      <div class="col-span-12 md:col-span-7 md:col-start-6">
+        <p class="text-xl md:text-2xl font-display leading-relaxed text-white/90">
+          Sie sind nicht allein. Die meisten Menschen, die zu uns kommen, kennen das Gefühl: ein leiser, dumpfer Schmerz. Eine alte Füllung, die bröckelt. Die Sorge, ausgeschimpft zu werden. Ein Termin, der schon dreimal verschoben wurde.
+        </p>
+
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6">
+          <div class="flex gap-4">
+            <span class="num-badge mt-1.5">›</span>
+            <p class="text-base md:text-lg leading-relaxed text-white/80">Lange Wartezeiten beim alten Zahnarzt — Sie sitzen 40 Minuten im Wartezimmer.</p>
+          </div>
+          <div class="flex gap-4">
+            <span class="num-badge mt-1.5">›</span>
+            <p class="text-base md:text-lg leading-relaxed text-white/80">Hektische 5-Minuten-Behandlungen ohne echte Beratung oder Aufklärung.</p>
+          </div>
+          <div class="flex gap-4">
+            <span class="num-badge mt-1.5">›</span>
+            <p class="text-base md:text-lg leading-relaxed text-white/80">Das ungute Gefühl: Wird mir hier etwas verkauft, was ich gar nicht brauche?</p>
+          </div>
+          <div class="flex gap-4">
+            <span class="num-badge mt-1.5">›</span>
+            <p class="text-base md:text-lg leading-relaxed text-white/80">Angst vor Schmerzen oder peinlichen Momenten — besonders nach längerer Pause.</p>
+          </div>
+        </div>
+
+        <div class="mt-12 border-l-2 border-white/40 pl-6">
+          <p class="font-display text-xl md:text-2xl italic-soft">
+            „Haben Sie sich schon einmal auf den Besuch beim Zahnarzt gefreut? Bei uns kann Ihnen das passieren."
+          </p>
+          <div class="font-mono text-[0.7rem] tracking-[0.22em] uppercase mt-4 opacity-70">— Dr. Sven Gangfuß</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SOLUTION ============ -->
+<section id="kompetenzen" class="py-20 md:py-32 relative" style="background: var(--bg-deep);">
+  <div class="max-w-[1500px] mx-auto px-5 md:px-10">
+
+    <div class="grid grid-cols-12 gap-6 mb-16 md:mb-24">
+      <div class="col-span-12 md:col-span-6">
+        <div class="sec-label mb-6">— 02 / Unser Weg</div>
+        <h2 class="font-display display-lg">
+          So fühlt sich<br>
+          Zahnmedizin <span class="italic-soft">heute</span> an.
+        </h2>
+      </div>
+      <div class="col-span-12 md:col-span-5 md:col-start-8 md:pt-8">
+        <p class="text-lg md:text-xl text-white/80 leading-relaxed">
+          Vier Prinzipien, die jeden Besuch in unserer Praxis in der Fürstenstraße bestimmen — vom ersten Anruf bis zur letzten Kontrolle.
+        </p>
+      </div>
+    </div>
+
+    <!-- Solution Steps -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-px" style="background: rgba(255,255,255,0.18);">
+
+      <div class="p-8 md:p-12 lift" style="background: var(--bg-deep);">
+        <div class="flex items-start justify-between mb-8">
+          <span class="editorial-num font-display text-6xl md:text-7xl">01</span>
+          <span class="chip">Zeit</span>
+        </div>
+        <h3 class="font-display text-2xl md:text-3xl mb-4">Wir nehmen uns Zeit — wirklich.</h3>
+        <p class="text-white/75 leading-relaxed">
+          Effektives Terminmanagement bedeutet bei uns: kaum Wartezeit für Sie, dafür ein offenes Ohr und eine gründliche, ehrliche Beratung im Behandlungszimmer.
+        </p>
+      </div>
+
+      <div class="p-8 md:p-12 lift" style="background: var(--bg-deep);">
+        <div class="flex items-start justify-between mb-8">
+          <span class="editorial-num font-display text-6xl md:text-7xl">02</span>
+          <span class="chip">Sanft</span>
+        </div>
+        <h3 class="font-display text-2xl md:text-3xl mb-4">Schonende Behandlungs&shy;konzepte.</h3>
+        <p class="text-white/75 leading-relaxed">
+          Wir behandeln so minimal-invasiv wie möglich. Auch Angstpatienten und Kinder fühlen sich bei uns sicher — ruhig, freundlich, ohne Druck.
+        </p>
+      </div>
+
+      <div class="p-8 md:p-12 lift" style="background: var(--bg-deep);">
+        <div class="flex items-start justify-between mb-8">
+          <span class="editorial-num font-display text-6xl md:text-7xl">03</span>
+          <span class="chip">Ehrlich</span>
+        </div>
+        <h3 class="font-display text-2xl md:text-3xl mb-4">Beratung ohne Verkaufsdruck.</h3>
+        <p class="text-white/75 leading-relaxed">
+          Wir empfehlen nur, was Sie wirklich brauchen. Sie bekommen alle Optionen erklärt — Kassenleistung wie Privatleistung, transparent und verständlich.
+        </p>
+      </div>
+
+      <div class="p-8 md:p-12 lift" style="background: var(--bg-deep);">
+        <div class="flex items-start justify-between mb-8">
+          <span class="editorial-num font-display text-6xl md:text-7xl">04</span>
+          <span class="chip">Komplett</span>
+        </div>
+        <h3 class="font-display text-2xl md:text-3xl mb-4">Das ganze Spektrum, ein Team.</h3>
+        <p class="text-white/75 leading-relaxed">
+          Von Prophylaxe über Ästhetik bis Implantologie und eigenem Labor — Sie bleiben in einer Hand. Keine Überweisungen, keine Wege, keine Brüche.
+        </p>
+      </div>
+    </div>
+
+    <!-- Competencies grid -->
+    <div class="mt-20 md:mt-28">
+      <div class="flex items-end justify-between mb-10 flex-wrap gap-4">
+        <h3 class="font-display display-md">Unsere Kompetenzen.</h3>
+        <span class="sec-label">— 09 Schwerpunkte</span>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-9 gap-px" style="background: rgba(255,255,255,0.18);">
+        <a href="#termin" class="p-6 text-center hover:bg-white/5 transition" style="background: var(--bg-deep);">
+          <div class="num-badge mb-3">01</div>
+          <div class="font-display text-lg italic-soft">Prophylaxe</div>
+        </a>
+        <a href="#termin" class="p-6 text-center hover:bg-white/5 transition" style="background: var(--bg-deep);">
+          <div class="num-badge mb-3">02</div>
+          <div class="font-display text-lg italic-soft">Endodontie</div>
+        </a>
+        <a href="#termin" class="p-6 text-center hover:bg-white/5 transition" style="background: var(--bg-deep);">
+          <div class="num-badge mb-3">03</div>
+          <div class="font-display text-lg italic-soft">Bleaching</div>
+        </a>
+        <a href="#termin" class="p-6 text-center hover:bg-white/5 transition" style="background: var(--bg-deep);">
+          <div class="num-badge mb-3">04</div>
+          <div class="font-display text-lg italic-soft">Ästhetik</div>
+        </a>
+        <a href="#termin" class="p-6 text-center hover:bg-white/5 transition" style="background: var(--bg-deep);">
+          <div class="num-badge mb-3">05</div>
+          <div class="font-display text-lg italic-soft">Implantologie</div>
+        </a>
+        <a href="#termin" class="p-6 text-center hover:bg-white/5 transition" style="background: var(--bg-deep);">
+          <div class="num-badge mb-3">06</div>
+          <div class="font-display text-lg italic-soft">Zahnerhalt</div>
+        </a>
+        <a href="#termin" class="p-6 text-center hover:bg-white/5 transition" style="background: var(--bg-deep);">
+          <div class="num-badge mb-3">07</div>
+          <div class="font-display text-lg italic-soft">Parodontologie</div>
+        </a>
+        <a href="#termin" class="p-6 text-center hover:bg-white/5 transition" style="background: var(--bg-deep);">
+          <div class="num-badge mb-3">08</div>
+          <div class="font-display text-lg italic-soft">Prothetik</div>
+        </a>
+        <a href="#termin" class="p-6 text-center hover:bg-white/5 transition" style="background: var(--bg-deep);">
+          <div class="num-badge mb-3">09</div>
+          <div class="font-display text-lg italic-soft">Eig. Labor</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="mt-16 text-center">
+      <a href="#termin" class="btn-primary">
+        <span>Meinen Termin sichern</span>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROOF ============ -->
+<section id="proof" class="py-20 md:py-32">
+  <div class="max-w-[1500px] mx-auto px-5 md:px-10">
+
+    <div class="grid grid-cols-12 gap-6 mb-16">
+      <div class="col-span-12 md:col-span-7">
+        <div class="sec-label mb-6">— 03 / Patientenstimmen</div>
+        <h2 class="font-display display-lg">
+          „Ich komme<br>
+          <span class="italic-soft">gern wieder.</span>"
+        </h2>
+        <p class="mt-6 text-white/75 max-w-lg">Über so ein Feedback freuen wir uns immer am meisten. Hier ein paar Stimmen unserer Patientinnen und Patienten.</p>
+      </div>
+    </div>
+
+    <!-- Testimonials -->
+    <!-- PLATZHALTER: echte Testimonials hier einsetzen -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-px" style="background: rgba(255,255,255,0.18);">
+
+      <div class="p-8 md:p-10 relative" style="background: var(--bg);">
+        <div class="qmark absolute top-4 left-6">"</div>
+        <div class="relative pt-8">
+          <p class="font-display text-xl md:text-2xl leading-snug mb-8">
+            Endlich eine Praxis, in der ich keine Angst mehr habe. Dr. Gangfuß erklärt alles ruhig und nimmt sich wirklich Zeit. Habe meine Familie längst überzeugt.
+          </p>
+          <div class="hair mb-5"></div>
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="font-display text-lg">Andrea M.</div>
+              <div class="font-mono text-[0.65rem] tracking-[0.2em] uppercase opacity-70 mt-1">Bonn · Patientin seit 2019</div>
+            </div>
+            <div class="text-sm opacity-80">★★★★★</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-8 md:p-10 relative" style="background: var(--bg);">
+        <div class="qmark absolute top-4 left-6">"</div>
+        <div class="relative pt-8">
+          <p class="font-display text-xl md:text-2xl leading-snug mb-8">
+            Kaum Wartezeit, freundliches Team und ein Implantat, das sich anfühlt wie ein eigener Zahn. Ich empfehle die Praxis seitdem allen meinen Kollegen.
+          </p>
+          <div class="hair mb-5"></div>
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="font-display text-lg">Thomas K.</div>
+              <div class="font-mono text-[0.65rem] tracking-[0.2em] uppercase opacity-70 mt-1">Bad Godesberg · Implantat</div>
+            </div>
+            <div class="text-sm opacity-80">★★★★★</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-8 md:p-10 relative" style="background: var(--bg);">
+        <div class="qmark absolute top-4 left-6">"</div>
+        <div class="relative pt-8">
+          <p class="font-display text-xl md:text-2xl leading-snug mb-8">
+            Unsere Kinder gehen freiwillig zum Zahnarzt — das hätte ich nie gedacht. Das Team ist herzlich, geduldig und absolut professionell.
+          </p>
+          <div class="hair mb-5"></div>
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="font-display text-lg">Familie Wagner</div>
+              <div class="font-mono text-[0.65rem] tracking-[0.2em] uppercase opacity-70 mt-1">Bonn-Zentrum · Familienpatienten</div>
+            </div>
+            <div class="text-sm opacity-80">★★★★★</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trust stats -->
+    <div class="mt-16 md:mt-24 grid grid-cols-2 md:grid-cols-4 gap-px" style="background: rgba(255,255,255,0.18);">
+      <div class="p-8 text-center" style="background: var(--bg);">
+        <div class="editorial-num font-display text-5xl md:text-6xl">5.0</div>
+        <div class="font-mono text-[0.65rem] tracking-[0.22em] uppercase opacity-70 mt-3">Google-Bewertung</div>
+      </div>
+      <div class="p-8 text-center" style="background: var(--bg);">
+        <div class="editorial-num font-display text-5xl md:text-6xl">20+</div>
+        <div class="font-mono text-[0.65rem] tracking-[0.22em] uppercase opacity-70 mt-3">Jahre in Bonn</div>
+      </div>
+      <div class="p-8 text-center" style="background: var(--bg);">
+        <div class="editorial-num font-display text-5xl md:text-6xl">98%</div>
+        <div class="font-mono text-[0.65rem] tracking-[0.22em] uppercase opacity-70 mt-3">Empfehlungsrate</div>
+      </div>
+      <div class="p-8 text-center" style="background: var(--bg);">
+        <div class="editorial-num font-display text-5xl md:text-6xl">0&nbsp;€</div>
+        <div class="font-mono text-[0.65rem] tracking-[0.22em] uppercase opacity-70 mt-3">Erstberatung Kasse</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TEAM / ABOUT ============ -->
+<section id="team" class="py-20 md:py-32" style="background: var(--bg-deep);">
+  <div class="max-w-[1500px] mx-auto px-5 md:px-10">
+    <div class="grid grid-cols-12 gap-6 md:gap-10 items-center">
+
+      <div class="col-span-12 md:col-span-5">
+        <div class="hero-img-frame">
+          <div class="hero-img w-full h-[420px] md:h-[560px]"></div>
+        </div>
+      </div>
+
+      <div class="col-span-12 md:col-span-6 md:col-start-7">
+        <div class="sec-label mb-6">— 04 / Wer wir sind</div>
+        <h2 class="font-display display-lg">
+          Dr. Sven<br>
+          <span class="italic-soft">Gangfuß.</span>
+        </h2>
+        <p class="mt-8 text-lg md:text-xl text-white/85 leading-relaxed">
+          Das Herzstück unserer Praxis ist das harmonische, eingespielte Team rund um Dr. Sven Gangfuß. Gute Stimmung überträgt sich — auf die Behandlung, auf das Wohlbefinden, auf das Ergebnis.
+        </p>
+
+        <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-5">
+          <div class="flex gap-3">
+            <span class="num-badge mt-1.5">✓</span>
+            <span class="text-white/85">Freundliches, kompetentes Praxisteam</span>
+          </div>
+          <div class="flex gap-3">
+            <span class="num-badge mt-1.5">✓</span>
+            <span class="text-white/85">Effektives Terminmanagement</span>
+          </div>
+          <div class="flex gap-3">
+            <span class="num-badge mt-1.5">✓</span>
+            <span class="text-white/85">Harmonisches Praxisambiente</span>
+          </div>
+          <div class="flex gap-3">
+            <span class="num-badge mt-1.5">✓</span>
+            <span class="text-white/85">Zeit für Ihre Bedürfnisse</span>
+          </div>
+          <div class="flex gap-3">
+            <span class="num-badge mt-1.5">✓</span>
+            <span class="text-white/85">Ehrliche Beratung ohne Druck</span>
+          </div>
+          <div class="flex gap-3">
+            <span class="num-badge mt-1.5">✓</span>
+            <span class="text-white/85">Schonende Behandlungskonzepte</span>
+          </div>
+        </div>
+
+        <div class="mt-10">
+          <a href="#termin" class="btn-primary">
+            <span>Jetzt Termin anfragen</span>
+            <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq" class="py-20 md:py-32">
+  <div class="max-w-[1100px] mx-auto px-5 md:px-10">
+
+    <div class="mb-12 md:mb-16">
+      <div class="sec-label mb-6">— 05 / Häufige Fragen</div>
+      <h2 class="font-display display-lg">Klären wir<br><span class="italic-soft">vorab.</span></h2>
+    </div>
+
+    <div class="divide-y divide-white/15 border-t border-b border-white/15">
+
+      <details class="py-6 group">
+        <summary class="flex items-start justify-between gap-6">
+          <span class="font-display text-xl md:text-2xl">Bin ich auch als gesetzlich Versicherte/r willkommen?</span>
+          <span class="plus font-display text-3xl leading-none mt-1 shrink-0">+</span>
+        </summary>
+        <p class="mt-4 text-white/80 leading-relaxed max-w-3xl">
+          Selbstverständlich. Wir behandeln Kassen- und Privatpatienten gleichermaßen — mit derselben Sorgfalt, derselben Zeit und derselben ehrlichen Beratung. Zusatzleistungen besprechen wir transparent, bevor irgendetwas entschieden wird.
+        </p>
+      </details>
+
+      <details class="py-6 group">
+        <summary class="flex items-start justify-between gap-6">
+          <span class="font-display text-xl md:text-2xl">Ich habe Angst vor dem Zahnarzt. Was passiert beim ersten Termin?</span>
+          <span class="plus font-display text-3xl leading-none mt-1 shrink-0">+</span>
+        </summary>
+        <p class="mt-4 text-white/80 leading-relaxed max-w-3xl">
+          Beim Erstgespräch passiert nichts ohne Ihr Einverständnis. Wir hören zu, schauen uns die Situation an und besprechen gemeinsam, wie wir Schritt für Schritt vorgehen — in Ihrem Tempo.
+        </p>
+      </details>
+
+      <details class="py-6 group">
+        <summary class="flex items-start justify-between gap-6">
+          <span class="font-display text-xl md:text-2xl">Wie sind Ihre Sprechzeiten?</span>
+          <span class="plus font-display text-3xl leading-none mt-1 shrink-0">+</span>
+        </summary>
+        <p class="mt-4 text-white/80 leading-relaxed max-w-3xl">
+          Montag bis Freitag von 08:30 – 13:00 Uhr, sowie Montag, Dienstag und Donnerstag zusätzlich von 15:00 – 18:00 Uhr. Termine vereinbaren Sie am einfachsten online oder telefonisch unter 0228 65 66 97.
+        </p>
+      </details>
+
+      <details class="py-6 group">
+        <summary class="flex items-start justify-between gap-6">
+          <span class="font-display text-xl md:text-2xl">Wie schnell bekomme ich einen Termin?</span>
+          <span class="plus font-display text-3xl leading-none mt-1 shrink-0">+</span>
+        </summary>
+        <p class="mt-4 text-white/80 leading-relaxed max-w-3xl">
+          Für Erstkontakt und Beratung finden wir in der Regel innerhalb von 1–2 Wochen einen passenden Termin. Bei akuten Schmerzen rufen Sie uns direkt an — wir versuchen, Sie noch am selben Tag unterzubringen.
+        </p>
+      </details>
+
+      <details class="py-6 group">
+        <summary class="flex items-start justify-between gap-6">
+          <span class="font-display text-xl md:text-2xl">Wo ist die Praxis und gibt es Parkmöglichkeiten?</span>
+          <span class="plus font-display text-3xl leading-none mt-1 shrink-0">+</span>
+        </summary>
+        <p class="mt-4 text-white/80 leading-relaxed max-w-3xl">
+          Sie finden uns in der Fürstenstraße 2, 53111 Bonn — in unmittelbarer Schlossnähe. Parkhäuser und ÖPNV-Haltestellen sind fußläufig erreichbar.
+        </p>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA / FORM ============ -->
+<section id="termin" class="py-20 md:py-32" style="background: var(--bg-deep);">
+  <div class="max-w-[1500px] mx-auto px-5 md:px-10">
+
+    <div class="grid grid-cols-12 gap-8 md:gap-12">
+
+      <div class="col-span-12 lg:col-span-5">
+        <div class="sec-label mb-6">— 06 / Ihr Termin</div>
+        <h2 class="font-display display-lg">
+          Lassen Sie uns<br>
+          <span class="italic-soft">anfangen.</span>
+        </h2>
+        <p class="mt-8 text-lg text-white/85 leading-relaxed max-w-md">
+          Schreiben Sie uns kurz — wir melden uns innerhalb eines Werktags persönlich bei Ihnen. Kein Formularsalat, kein Verkauf. Nur ein erster, freundlicher Schritt.
+        </p>
+
+        <div class="mt-12 space-y-6">
+          <div>
+            <div class="font-mono text-[0.65rem] tracking-[0.25em] uppercase opacity-60 mb-2">Telefon</div>
+            <a href="tel:022865669̆7" class="font-display text-2xl hover:opacity-80">0228 · 65 66 97</a>
+          </div>
+          <div class="hair"></div>
+          <div>
+            <div class="font-mono text-[0.65rem] tracking-[0.25em] uppercase opacity-60 mb-2">Adresse</div>
+            <div class="font-display text-2xl">Fürstenstraße 2<br><span class="italic-soft">53111 Bonn</span></div>
+          </div>
+          <div class="hair"></div>
+          <div>
+            <div class="font-mono text-[0.65rem] tracking-[0.25em] uppercase opacity-60 mb-2">Sprechzeiten</div>
+            <div class="text-white/85 leading-relaxed">
+              Mo – Fr · 08:30 – 13:00 Uhr<br>
+              Mo · Di · Do · 15:00 – 18:00 Uhr
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-span-12 lg:col-span-6 lg:col-start-7">
+        <div class="form-card p-8 md:p-12">
+          <div class="flex items-baseline justify-between mb-8">
+            <h3 class="font-display text-3xl md:text-4xl" style="color: var(--ink);">Terminanfrage</h3>
+            <span class="font-mono text-[0.65rem] tracking-[0.22em] uppercase" style="color: rgba(42,49,64,0.6);">— Antwort &lt; 24h</span>
+          </div>
+
+          <form id="contactForm" action="mailto:praxis@fuerstenstrasse-bonn.de" method="post" enctype="text/plain" class="space-y-6">
+
+            <div>
+              <label class="font-mono text-[0.68rem] tracking-[0.22em] uppercase block mb-1" style="color: rgba(42,49,64,0.6);">Name *</label>
+              <input type="text" name="name" required placeholder="Wie dürfen wir Sie ansprechen?">
+            </div>
+
+            <div>
+              <label class="font-mono text-[0.68rem] tracking-[0.22em] uppercase block mb-1" style="color: rgba(42,49,64,0.6);">E-Mail *</label>
+              <input type="email" name="email" required placeholder="ihre@email.de">
+            </div>
+
+            <div>
+              <label class="font-mono text-[0.68rem] tracking-[0.22em] uppercase block mb-1" style="color: rgba(42,49,64,0.6);">Telefon (optional)</label>
+              <input type="tel" name="phone" placeholder="Für schnellen Rückruf">
+            </div>
+
+            <div>
+              <label class="font-mono text-[0.68rem] tracking-[0.22em] uppercase block mb-1" style="color: rgba(42,49,64,0.6);">Ihr Anliegen *</label>
+              <textarea name="message" rows="3" required placeholder="Worum geht es? Routinekontrolle, Beratung, Beschwerden, …"></textarea>
+            </div>
+
+            <label class="flex items-start gap-3 text-xs leading-relaxed" style="color: rgba(42,49,64,0.75);">
+              <input type="checkbox" name="dsgvo" required class="mt-1 shrink-0" style="width:auto; border:1px solid #2a3140;">
+              <span>Ich willige ein, dass meine Angaben zur Beantwortung meiner Anfrage verarbeitet werden. <a href="#" class="underline">Datenschutzerklärung</a>.</span>
+            </label>
+
+            <button type="submit" class="submit-btn">
+              Meinen Wunschtermin anfragen →
+            </button>
+
+            <p class="font-mono text-[0.62rem] tracking-[0.2em] uppercase text-center" style="color: rgba(42,49,64,0.55);">
+              Unverbindlich · Antwort innerhalb eines Werktags
+            </p>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="py-12 md:py-16" style="background: #4a5566;">
+  <div class="max-w-[1500px] mx-auto px-5 md:px-10">
+
+    <div class="font-display text-6xl md:text-9xl leading-none mb-12 opacity-90">
+      Fürstenstraße <span class="italic-soft">2.</span>
+    </div>
+
+    <div class="hair mb-10"></div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+      <div>
+        <div class="font-mono text-[0.65rem] tracking-[0.25em] uppercase opacity-60 mb-3">Praxis</div>
+        <div class="text-sm text-white/85 leading-relaxed">
+          Zahnarztpraxis<br>
+          in der Fürstenstraße<br>
+          Dr. Sven Gangfuß
+        </div>
+      </div>
+      <div>
+        <div class="font-mono text-[0.65rem] tracking-[0.25em] uppercase opacity-60 mb-3">Adresse</div>
+        <div class="text-sm text-white/85 leading-relaxed">
+          Fürstenstraße 2<br>
+          53111 Bonn<br>
+          0228 65 66 97
+        </div>
+      </div>
+      <div>
+        <div class="font-mono text-[0.65rem] tracking-[0.25em] uppercase opacity-60 mb-3">Navigation</div>
+        <ul class="text-sm text-white/85 space-y-2">
+          <li><a href="#kompetenzen" class="hover:opacity-70">Kompetenzen</a></li>
+          <li><a href="#proof" class="hover:opacity-70">Patientenstimmen</a></li>
+          <li><a href="#team" class="hover:opacity-70">Team</a></li>
+          <li><a href="#faq" class="hover:opacity-70">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="font-mono text-[0.65rem] tracking-[0.25em] uppercase opacity-60 mb-3">Rechtliches</div>
+        <ul class="text-sm text-white/85 space-y-2">
+          <li><a href="#" class="hover:opacity-70">Impressum</a></li>
+          <li><a href="#" class="hover:opacity-70">Datenschutz</a></li>
+          <li><a href="#" class="hover:opacity-70">Karriere</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="hair mb-6"></div>
+
+    <div class="flex flex-wrap items-center justify-between gap-3 font-mono text-[0.65rem] tracking-[0.22em] uppercase opacity-60">
+      <span>© Zahnarztpraxis Fürstenstraße · Bonn</span>
+      <span>Made with care in Schlossnähe.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ STICKY MOBILE CTA ============ -->
+<div class="sticky-cta">
+  <a href="tel:022865669̆7" class="flex-1 text-center py-3 border border-white/30 font-mono text-[0.7rem] tracking-[0.2em] uppercase">Anrufen</a>
+  <a href="#termin" class="flex-1 text-center py-3 font-mono text-[0.7rem] tracking-[0.2em] uppercase" style="background: var(--accent); color: var(--ink);">Termin →</a>
+</div>
+
+<script>
+  // Smooth scroll fallback + close FAQ siblings
+  document.querySelectorAll('details').forEach(d => {
+    d.addEventListener('toggle', () => {
+      if (d.open) {
+        document.querySelectorAll('details').forEach(o => { if (o !== d) o.open = false; });
+      }
+    });
+  });
+
+  // Simple form validation feedback
+  const form = document.getElementById('contactForm');
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      const msg = form.message.value.trim();
+      if (!name || !email || !msg) {
+        e.preventDefault();
+        alert('Bitte füllen Sie Name, E-Mail und Anliegen aus.');
+      }
+    });
+  }
+
+  // Scroll reveal on scroll for sections beyond hero
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if (en.isIntersecting) {
+        en.target.style.opacity = 1;
+        en.target.style.transform = 'translateY(0)';
+        io.unobserve(en.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('section h2, section h3').forEach(el => {
+    el.style.opacity = 0;
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 1.1s cubic-bezier(.2,.7,.2,1), transform 1.1s cubic-bezier(.2,.7,.2,1)';
+    io.observe(el);
+  });
+</script>
+
+</body>
+</html>
